@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Love ❤️</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+overflow:hidden;
+}
+
+/* ❤️ HEARTS */
+.heart{
+position:fixed;
+top:-10px;
+font-size:22px;
+animation:fall linear forwards;
+pointer-events:none;
+z-index:999;
+}
+
+@keyframes fall{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(100vh);opacity:0;}
+}
+
+/* COMMON IMAGE FULL SCREEN */
+.imageContainer{
+position:absolute;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+overflow:hidden;
+background:black;
+}
+
+.imageContainer img{
+width:100%;
+height:100%;
+object-fit:cover;
+animation:zoom 12s ease-in-out infinite alternate;
+}
+
+/* PAGE 3 IMAGE */
+#page3 .imageContainer img{
+object-fit:contain;
+animation:none;
+}
+
+/* OVERLAY */
+.imageContainer::after{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:linear-gradient(
+to bottom,
+rgba(255,105,180,0.25),
+rgba(255,182,193,0.25),
+rgba(255,20,147,0.25)
+);
+}
+
+/* ZOOM */
+@keyframes zoom{
+from{transform:scale(1);}
+to{transform:scale(1.08);}
+}
+
+/* FIRST BOX */
+.firstBox{
+position:absolute;
+top:50%;
+left:75%;
+transform:translate(-50%,-50%);
+background:rgba(255,255,255,0.9);
+padding:30px 40px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.3);
+z-index:2;
+}
+
+/* BUTTONS */
+button{
+padding:12px 24px;
+border:none;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+}
+
+.yes{background:#ff4d6d;color:white;}
+.no{background:#ddd;}
+
+.btnBox{
+display:flex;
+gap:20px;
+justify-content:center;
+margin-top:20px;
+}
+
+/* ✨ PAGE 3 SPECIAL BOX */
+.imageText{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%) scale(0.8);
+color:white;
+text-align:center;
+background:rgba(255,182,193,0.08);
+padding:35px 40px;
+border-radius:25px;
+width:360px;
+backdrop-filter:blur(4px);
+box-shadow:0 0 25px rgba(255,105,180,0.4);
+animation:popIn 1.2s ease forwards;
+z-index:2;
+}
+
+/* 💫 POP ANIMATION */
+@keyframes popIn{
+0%{opacity:0; transform:translate(-50%,-40%) scale(0.6);}
+100%{opacity:1; transform:translate(-50%,-50%) scale(1);}
+}
+
+/* ✍️ TYPING TEXT */
+.typing{
+overflow:hidden;
+white-space:nowrap;
+border-right:2px solid white;
+width:0;
+animation:typing 3s steps(40,end) forwards, blink 0.7s infinite;
+}
+
+@keyframes typing{
+to{width:100%;}
+}
+
+@keyframes blink{
+50%{border-color:transparent;}
+}
+
+/* PAGES */
+#page1,#page2,#page3{
+display:none;
+position:relative;
+height:100vh;
+}
+
+#page1{
+display:block;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="page1">
+<div class="imageContainer">
+<img src="img4.jpeg">
+
+<div class="firstBox">
+<h2>Hey Beautiful ❤️</h2>
+<h3>Do you love me?</h3>
+
+<div class="btnBox">
+<button class="yes" onclick="goPage2()">YES ❤️</button>
+<button class="no" id="noBtn">NO 😜</button>
+</div>
+</div>
+</div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2">
+<div class="imageContainer">
+<img src="heart.jpeg">
+
+<div class="imageText">
+<h2>For You ❤️</h2>
+<p>
+“You’re not just my love…<br>
+you’re my favorite feeling, my safest place,<br>
+and the best part of my life ❤️”
+</p>
+<button onclick="goPage3()">Next ❤️</button>
+</div>
+</div>
+</div>
+
+<!-- 💖 PAGE 3 SPECIAL -->
+<div id="page3">
+<div class="imageContainer">
+<img src="heart2.jpeg">
+
+<div class="imageText">
+<h2>Happy Birthday My Love 🎂❤️</h2>
+
+<p class="typing">
+You are my happiness, my peace, and my forever ❤️
+</p>
+
+<p style="margin-top:15px; opacity:0; animation:fadeIn 2s ease 3s forwards;">
+I promise to love you more every single day 💕
+</p>
+
+</div>
+</div>
+</div>
+
+<script>
+
+window.onload = function(){
+
+    setInterval(createHeart,200);
+
+    const noBtn = document.getElementById("noBtn");
+
+    noBtn.addEventListener("mouseover", () => {
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+        noBtn.style.position = "fixed";
+        noBtn.style.left = x + "px";
+        noBtn.style.top = y + "px";
+    });
+};
+
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (4 + Math.random()*2) + "s";
+
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+
+function goPage2(){
+document.getElementById("page1").style.display="none";
+document.getElementById("page2").style.display="block";
+}
+
+function goPage3(){
+document.getElementById("page2").style.display="none";
+document.getElementById("page3").style.display="block";
+}
+
+</script>
+
+</body>
+</html>
